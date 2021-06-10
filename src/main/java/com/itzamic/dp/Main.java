@@ -6,8 +6,21 @@ import com.itzamic.dp.creational.factory.ShapeType;
 import com.itzamic.dp.creational.prototype.Shape;
 import com.itzamic.dp.creational.prototype.ShapeCache;
 import com.itzamic.dp.creational.singleton.SingleObjectMultiThreaded;
+import com.itzamic.dp.structural.adapter.AudioPlayer;
+import com.itzamic.dp.structural.adapter.AudioType;
+import com.itzamic.dp.structural.bridge.Circle;
+import com.itzamic.dp.structural.bridge.GreenCircle;
+import com.itzamic.dp.structural.bridge.RedCircle;
+import com.itzamic.dp.structural.composite.Employee;
+import com.itzamic.dp.structural.decorator.Rectangle;
+import com.itzamic.dp.structural.decorator.RedShapeDecorator;
+import com.itzamic.dp.structural.facade.ShapeMaker;
+import com.itzamic.dp.structural.flyweight.ShapeFactory;
+import com.itzamic.dp.structural.proxy.ProxyImage;
 
 public class Main {
+  private static final String colors[] = {"Red", "Green", "Blue", "White", "Black"};
+
   public static void main(String[] args) throws NoSuchMethodException {
     var shapeFactory = FactoryProducer.getFactory(false);
     var circle = shapeFactory.getShape(ShapeType.CIRCLE);
@@ -55,6 +68,100 @@ public class Main {
     Thread threadBar = new Thread(new ThreadBar());
     threadFoo.start();
     threadBar.start();
+
+    var audioPlayer = new AudioPlayer();
+
+    audioPlayer.play(AudioType.MP3, "beyond the horizon.mp3");
+    audioPlayer.play(AudioType.MP4, "alone.mp4");
+    audioPlayer.play(AudioType.VLC, "far far away.vlc");
+    audioPlayer.play(AudioType.AVI, "mind me.avi");
+
+    var redCircle = new Circle(100, 100, 10, new RedCircle());
+    var greenCircle = new Circle(100, 100, 10, new GreenCircle());
+
+    redCircle.draw();
+    greenCircle.draw();
+
+    var CEO = new Employee("John", "CEO", 30000);
+
+    var headSales = new Employee("Robert", "Head Sales", 20000);
+
+    var headMarketing = new Employee("Michel", "Head Marketing", 20000);
+
+    var clerk1 = new Employee("Laura", "Marketing", 10000);
+    var clerk2 = new Employee("Bob", "Marketing", 10000);
+
+    var salesExecutive1 = new Employee("Richard", "Sales", 10000);
+    var salesExecutive2 = new Employee("Rob", "Sales", 10000);
+
+    CEO.add(headSales);
+    CEO.add(headMarketing);
+
+    headSales.add(salesExecutive1);
+    headSales.add(salesExecutive2);
+
+    headMarketing.add(clerk1);
+    headMarketing.add(clerk2);
+
+    // print all employees of the organization
+    System.out.println(CEO);
+
+    for (Employee headEmployee : CEO.getSubordinates()) {
+      System.out.println(headEmployee);
+
+      for (Employee employee : headEmployee.getSubordinates()) {
+        System.out.println(employee);
+      }
+    }
+    var circle1 = new com.itzamic.dp.structural.decorator.Circle();
+
+    var redCircle1 = new RedShapeDecorator(new com.itzamic.dp.structural.decorator.Circle());
+
+    var redRectangle = new RedShapeDecorator(new Rectangle());
+    System.out.println("Circle with normal border");
+    circle1.draw();
+
+    System.out.println("\nCircle of red border");
+    redCircle1.draw();
+
+    System.out.println("\nRectangle of red border");
+    redRectangle.draw();
+
+    var shapeMaker = new ShapeMaker();
+
+    shapeMaker.drawCircle();
+    shapeMaker.drawRectangle();
+    shapeMaker.drawSquare();
+
+    for (int i = 0; i < 20; ++i) {
+      var fwCircle =
+          (com.itzamic.dp.structural.flyweight.Circle) ShapeFactory.getCircle(getRandomColor());
+      fwCircle.setX(getRandomX());
+      fwCircle.setY(getRandomY());
+      fwCircle.setRadius(100);
+      fwCircle.draw();
+    }
+
+    var image = new ProxyImage("test_10mb.jpg");
+
+    // image will be loaded from disk
+    image.display();
+    System.out.println("");
+
+    // image will not be loaded from disk
+    image.display();
+  }
+
+  private static String getRandomColor() {
+    return colors[(int) (Math.random() * colors.length)];
+  }
+
+  private static int getRandomX() {
+    return (int) (Math.random() * 100);
+  }
+
+  private static int getRandomY() {
+    return (int) (Math.random() * 100);
   }
 
   static class ThreadFoo implements Runnable {
