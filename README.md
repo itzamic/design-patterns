@@ -1,4 +1,4 @@
-# design-patterns
+# Design Patterns
 This is a repo containing design patterns using Java
 
 Design patterns are well-proved solutions for solving specific problem/task.
@@ -88,3 +88,81 @@ Proxy is a structural design pattern that lets you provide a substitute or place
 
 ## Behavioral Patterns
 These design patterns are specifically concerned with communication between objects.
+### Chain of Responsibility
+A way of passing a request between a chain of objects
+#### Intent
+Chain of Responsibility is a behavioral design pattern that lets you pass requests along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+#### Applicability
+- Use the Chain of Responsibility pattern when your program is expected to process different kinds of requests in various ways, but the exact types of requests and their sequences are unknown beforehand.
+- Use the pattern when it's essential to execute several handlers in a particular order.
+- Use the CoR pattern when the set of handlers and their order are supposed to change at runtime.
+### Command
+Encapsulate a command request as an object
+#### Intent
+Command is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request's execution, and support undoable operations.
+#### Applicability
+- Use the Command pattern when you want to parametrize objects with operations.
+- Use the Command pattern when you want to queue operations, schedule their execution, or execute them remotely.
+- Use the Command pattern when you want to implement reversible operations.
+### Iterator
+Sequentially access the elements of a collection
+#### Intent
+Iterator is a behavioral design pattern that lets you traverse elements of a collection without exposing its underlying representation (list, stack, tree etc).
+#### Applicability
+- Use the Iterator pattern when your collection has a complex data structure under the hood, but you want to hide its complexity from clients (either for convenience or security reasons).
+- Use the pattern to reduce duplication of the traversal code across your app.
+- Use the Iterator when you want your code to be able to traverse different data structures or when types of these structures are unknown beforehand.
+### Mediator
+Defines simplified communication between classes
+#### Intent
+Mediator is a behavioral design pattern that lets you reduce chaotic dependencies between objects. The pattern restricts direct communications between the objects and forces them to collaborate only via a mediator object.
+#### Applicability
+- Use the Mediator pattern when it's hard to change some classes because they are tightly coupled to a bunch of other classes.
+- Use the pattern when you can't reuse a component in a different program because it's too dependent on other components
+- Use the Mediator when you find yourself creating tons of component subclasses just to reuse some basic behavior in various contexts.
+### Memento
+Capture and restore an object's internal state
+#### Intent
+Memento is a behavioral design pattern that lets you save and restore the previous state of an object without revealing the details of its implementation.
+#### Applicability
+- Use the Memento pattern when you want to produce snapshots of the object's state to be able to restore a previous state of the object
+- Use the pattern when direct access to the object's fields/getters/setters violates its encapsulation.
+### Observer
+A way of notifying change to a number of classes
+#### Intent
+Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they're observing.
+#### Applicability
+- Use the Observer pattern when changes to the state of one object may require changing other objects, and the actual set of objects is unknown beforehand or changes dynamically
+- Use the pattern when some objects in your app must observe others, but only for a limited time or in specific cases.
+### State
+Alter an object's behavior when its state changes
+#### Intent 
+State is a behavioral design pattern that lets an object alter its behavior whe its internal state changes. It appears as if the object changed its class.
+#### Applicability
+- Use the State pattern when you have an object that behaves differently depending on its current state, the number of states is enormous, and the state-specific code changes frequently.
+- Use the pattern when you have a class polluted with massive conditionals that alter how the class behaves according to the current values of the class's fields.
+- Use State when you have a lot of duplicate code across similar states and transitions of a condition-based state machine.
+### Strategy
+Encapsulates an algorithm inside a class
+#### Intent
+Strategy is a behavioral design pattern that lets you define a family of algorithms, put each of them into separate class, and make their objects interchangeable.
+#### Applicability
+- Use the Strategy pattern when you want to use different variants of an algorithm within an object and be able to switch from one algorithm to another during runtime.
+- Use the Strategy when you have a lot of similar classes that only differ in the way they execute some behavior.
+- Use the pattern to isolate the business logic of a class from the implementation details of algorithms that may not be as important in the context of that logic.
+- Use the pattern when your class has a massive conditional operator that switches between different variants of the same algorithm
+### Template Method
+Defer the exact steps of an algorithm to a subclass
+#### Intent
+Template Method is a behavioral design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.
+#### Applicability
+- Use the Template Method pattern when you want to let clients extend only particular steps of an algorithm, but not the whole algorithm or its structure.
+- Use the pattern when you have several classes that contain almost identical algorithms with some minor differences. As a result, you might need to modify all classes when the algorithm changes.
+### Visitor
+Defines a new operation to a class without change
+#### Intent
+Visitor is a behavioral design pattern that lets you separate algorithms from the objects on which they operate.
+#### Applicability
+- Use the Visitor when you need to perform an operation on  all elements of a complex object structure (for example, an object tree).
+- Use the Visitor to clean up the business logic of auxiliary behaviors.
+- Use the pattern when a behavior makes sense only in some classes of a class hierarchy, but not in others.
